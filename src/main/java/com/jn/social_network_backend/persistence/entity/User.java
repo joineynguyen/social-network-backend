@@ -1,18 +1,13 @@
-package com.jn.social_network_backend.model;
+package com.jn.social_network_backend.persistence.entity;
 
-import java.util.List;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 
 @Entity
 @Table(name = "users")
@@ -26,8 +21,4 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
-
-    // One user can have many friends
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Friendship> friendships;
 }
