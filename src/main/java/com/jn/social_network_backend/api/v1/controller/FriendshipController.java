@@ -32,14 +32,14 @@ public class FriendshipController {
         User requestee = friendshipCreated.getFriendId();
 
         AddFriendResponse addFriendResponse = AddFriendResponse.builder()
-            .requesterId(requester.getId())
-            .requesterFirstName(requester.getFirstName())
-            .requesterLastName(requester.getLastName())
-            .requesteeId(requestee.getId())
-            .requesteeFirstName(requestee.getFirstName())
-            .requesteeLastName(requestee.getLastName())
-            .status(AddFriendStatus.SUCCESS)
-            .build();
+                .requesterId(requester.getId())
+                .requesterFirstName(requester.getFirstName())
+                .requesterLastName(requester.getLastName())
+                .requesteeId(requestee.getId())
+                .requesteeFirstName(requestee.getFirstName())
+                .requesteeLastName(requestee.getLastName())
+                .status(AddFriendStatus.SUCCESS)
+                .build();
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
