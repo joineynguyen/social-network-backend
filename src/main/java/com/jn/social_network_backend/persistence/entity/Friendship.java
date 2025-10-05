@@ -39,4 +39,8 @@ public class Friendship {
 
     @Enumerated(EnumType.STRING)
     private FriendshipStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "updated_by")
+    private User updatedBy;
 }

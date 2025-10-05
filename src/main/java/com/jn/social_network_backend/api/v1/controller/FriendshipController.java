@@ -7,11 +7,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jn.social_network_backend.api.v1.dto.AcceptFriendRequest;
+import com.jn.social_network_backend.api.v1.dto.AcceptFriendResponse;
 import com.jn.social_network_backend.api.v1.dto.AddFriendRequest;
 import com.jn.social_network_backend.api.v1.dto.AddFriendResponse;
-import com.jn.social_network_backend.domain.AddFriendStatus;
+import com.jn.social_network_backend.api.v1.mapper.FriendshipMapper;
 import com.jn.social_network_backend.persistence.entity.Friendship;
-import com.jn.social_network_backend.persistence.entity.User;
 import com.jn.social_network_backend.service.FriendshipService;
 
 import jakarta.validation.Valid;
@@ -23,26 +24,26 @@ import lombok.RequiredArgsConstructor;
 public class FriendshipController {
 
     private final FriendshipService friendshipService;
+    private final FriendshipMapper friendshipMapper;
 
     @PostMapping("/request")
     public ResponseEntity<AddFriendResponse> requestFriend(@Valid @RequestBody AddFriendRequest request) {
         Friendship friendshipCreated = friendshipService.requestFriend(request);
-
-        User requester = friendshipCreated.getUserId();
-        User requestee = friendshipCreated.getFriendId();
-
-        AddFriendResponse addFriendResponse = AddFriendResponse.builder()
-                .requesterId(requester.getId())
-                .requesterFirstName(requester.getFirstName())
-                .requesterLastName(requester.getLastName())
-                .requesteeId(requestee.getId())
-                .requesteeFirstName(requestee.getFirstName())
-                .requesteeLastName(requestee.getLastName())
-                .status(AddFriendStatus.SUCCESS)
-                .build();
+        AddFriendResponse response = friendshipMapper.toAddFriendResponseDto(friendshipCreated);
 
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(addFriendResponse);
+                .body(response);
+    }
+
+    @PostMapping("/accept")
+    public ResponseEntity<AcceptFriendResponse> acceptFriend(@Valid @RequestBody AcceptFriendRequest request) {
+        Friendship friendshipAccepted = friendshipService.acceptFriend(request);
+        AcceptFriendResponse response = friendshipMapper.toAcceptFriendResponseDto(friendshipAccepted);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
+
     }
 }

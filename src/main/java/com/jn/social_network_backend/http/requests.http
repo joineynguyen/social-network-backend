@@ -6,7 +6,7 @@ POST {{baseUrl}}/users/register
 Content-Type: application/json
 
 {
-  "firstName": "Bobby",
+  "firstName": "Bob",
   "lastName": "Nguyen"
 }
 
@@ -17,4 +17,13 @@ Content-Type: application/json
 {
   "requesterId": "1",
   "requesteeId": "2"
+}
+
+### Accept friend request
+POST {{baseUrl}}/friendships/accept
+Content-Type: application/json
+
+{
+  "acceptorId": "2",
+  "accepteeId": "1"
 }
