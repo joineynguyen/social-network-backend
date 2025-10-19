@@ -5,7 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class AcceptFriendRequest {
-    Long acceptorId;
-    Long accepteeId;
+public class FriendRecommendationRequest {
+    Long userId;
 }

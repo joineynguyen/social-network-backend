@@ -2,6 +2,7 @@ package com.jn.social_network_backend.api.v1.exception;
 
 import com.jn.social_network_backend.domain.exception.FriendshipAlreadyExistsException;
 import com.jn.social_network_backend.domain.exception.InvalidFriendshipStateException;
+import com.jn.social_network_backend.domain.exception.NoActiveFriendshipsFoundException;
 import com.jn.social_network_backend.domain.exception.ResourceNotFoundException;
 
 import java.util.Map;
@@ -41,6 +42,16 @@ public class GlobalExceptionHandler {
         );
         
         return ResponseEntity.status(HttpStatus.CONFLICT).body(body);
+    }
+
+    @ExceptionHandler(NoActiveFriendshipsFoundException.class)
+    public ResponseEntity<Map<String, String>> handleNoActiveFriendshipsFound(NoActiveFriendshipsFoundException ex) {
+        Map<String, String> body = Map.of(
+            "error", ex.getMessage(),
+            "code", "NO_ACTIVE_FRIENDSHIPS_FOUND"
+        );
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(body);
     }
 
     // Optional: Catch-all

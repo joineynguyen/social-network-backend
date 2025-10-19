@@ -1,5 +1,8 @@
 package com.jn.social_network_backend.api.v1.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +14,11 @@ import com.jn.social_network_backend.api.v1.dto.AcceptFriendRequest;
 import com.jn.social_network_backend.api.v1.dto.AcceptFriendResponse;
 import com.jn.social_network_backend.api.v1.dto.AddFriendRequest;
 import com.jn.social_network_backend.api.v1.dto.AddFriendResponse;
+import com.jn.social_network_backend.api.v1.dto.FriendRecommendationRequest;
+import com.jn.social_network_backend.api.v1.dto.FriendRecommendationResponse;
 import com.jn.social_network_backend.api.v1.mapper.FriendshipMapper;
 import com.jn.social_network_backend.persistence.entity.Friendship;
+import com.jn.social_network_backend.persistence.entity.User;
 import com.jn.social_network_backend.service.FriendshipService;
 
 import jakarta.validation.Valid;
@@ -44,6 +50,18 @@ public class FriendshipController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);
+    }
 
+    @PostMapping("/recommendFriends")
+    public ResponseEntity<FriendRecommendationResponse> recommendFriends(
+            @Valid @RequestBody FriendRecommendationRequest request) {
+        List<Long> recommendedFriends = friendshipService.recommendFriends(request);
+
+        FriendRecommendationResponse response = friendshipMapper.toFriendRecommendationDto(request.getUserId(),
+                recommendedFriends);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(response);
     }
 }

@@ -1,29 +1,37 @@
-### Variables
+### variables
 @baseUrl=http://localhost:8080/api/v1
 
-### Create a user
+### create a user
 POST {{baseUrl}}/users/register
 Content-Type: application/json
 
 {
-  "firstName": "Bob",
+  "firstName": "Helen",
   "lastName": "Nguyen"
 }
 
-### Submit friend request
+### submit friend request
 POST {{baseUrl}}/friendships/request
 Content-Type: application/json
 
 {
-  "requesterId": "1",
-  "requesteeId": "2"
+  "requesterId": "2",
+  "requesteeId": "4"
 }
 
-### Accept friend request
+### accept friend request
 POST {{baseUrl}}/friendships/accept
 Content-Type: application/json
 
 {
-  "acceptorId": "2",
-  "accepteeId": "1"
+  "acceptorId": "4",
+  "accepteeId": "2"
+}
+
+### recommend friends
+POST {{baseUrl}}/friendships/recommendFriends
+Content-Type: application/json
+
+{
+  "userId": "1"
 }

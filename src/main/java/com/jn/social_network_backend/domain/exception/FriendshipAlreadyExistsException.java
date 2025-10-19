@@ -5,3 +5,4 @@ public class FriendshipAlreadyExistsException extends RuntimeException {
         super(message);
     }
 }
+    

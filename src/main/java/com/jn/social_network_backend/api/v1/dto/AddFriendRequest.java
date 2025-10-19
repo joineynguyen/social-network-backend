@@ -1,12 +1,10 @@
 package com.jn.social_network_backend.api.v1.dto;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@Builder
 public class AddFriendRequest {
 
     private Long requesterId;

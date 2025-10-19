@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.jn.social_network_backend.api.v1.dto.UserRegistrationRequest;
 import com.jn.social_network_backend.api.v1.dto.UserRegistrationResponse;
-import com.jn.social_network_backend.domain.RegistrationStatus;
+import com.jn.social_network_backend.api.v1.mapper.UserMapper;
 import com.jn.social_network_backend.persistence.entity.User;
 import com.jn.social_network_backend.service.UserService;
 
@@ -22,18 +22,14 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostMapping("/register")
     public ResponseEntity<UserRegistrationResponse> registerUser(
         @Valid @RequestBody UserRegistrationRequest req) {
             
         User createdUser = userService.registerUser(req);
-        
-        UserRegistrationResponse resp = new UserRegistrationResponse(
-            createdUser.getFirstName(),
-            createdUser.getLastName(),
-            RegistrationStatus.SUCCESS
-        );
+        UserRegistrationResponse resp = userMapper.toUserRegistrationDto(createdUser);
         
         return ResponseEntity
                 .status(HttpStatus.CREATED)

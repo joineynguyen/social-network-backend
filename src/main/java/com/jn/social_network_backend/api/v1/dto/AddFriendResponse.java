@@ -2,15 +2,11 @@ package com.jn.social_network_backend.api.v1.dto;
 
 import com.jn.social_network_backend.domain.AddFriendStatus;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class AddFriendResponse {
 
     private Long requesterId;
